@@ -53,7 +53,10 @@ for documents to parse and index.  The process is pretty straightforward:
 
 1. Look in ``CONSUMPTION_DIR`` for a document.  If one is found, go to #2.
    If not, wait 10 seconds and try again.  On Linux, new documents are detected
-   instantly via inotify, so there's no waiting involved.
+   instantly via inotify, so there's no waiting involved. Nevertheless, 
+   if ``CONSUMPTION_DIR`` points to a mounted CIFS/SMB-share, it might make sense 
+   to add the argument ``--no-inotify`` to fall back to the non-inotify detection, as CIFS/SMB 
+   don't really work together with inotify.
 2. Parse the document with Tesseract
 3. Create a new record in the database with the OCR'd text
 4. Attempt to automatically assign document attributes by doing some guesswork.
